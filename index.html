@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>F1 Game - Saldo y Piloto Random</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      
+      header {
+        background-color: #333;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+      }
+      
+      nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+      
+      nav ul li {
+        margin-right: 20px;
+      }
+      
+      nav ul li:last-child {
+        margin-right: 0;
+      }
+      
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+      }
+      
+      main {
+        padding: 20px;
+      }
+      
+      section {
+        margin-bottom: 20px;
+      }
+      
+      h2 {
+        font-size: 28px;
+        margin-top: 0;
+      }
+      
+      #piloto-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      #piloto-card img {
+        max-width: 200px;
+      }
+      
+      #saldo-actual {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      
+      button {
+        padding: 10px;  
+       
+    }
+    #saldo {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: 40px auto;
+}
+
+#saldo h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+#saldo-actual {
+  font-size: 32px;
+  font-weight: bold;
+  color: #1c80ff;
+  margin-bottom: 20px;
+}
+
+#saldo label {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+#saldo input[type="number"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+#saldo button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  background-color: #1c80ff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#saldo button:hover {
+  background-color: #1a73e8;
+}
+
+#saldo button:active {
+  background-color: #185abc;
+}
+
+#saldo button:last-of-type {
+  margin-top: 10px;
+}
+
+
+#dado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 2em;
+    font-weight: bold;
+    color: #333;
+}
+
+#dado:hover {
+    background-color: #e0e0e0;
+}
+
+
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>F1 Game</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="cartas.html">Cartas</a></li>
+          <li><a href="login.html">Usuario</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="piloto-random">
+        <h2>Piloto Random</h2>
+        <div id="piloto-card">
+          <img src="img/loading.gif" alt="Cargando..." />
+          <h3>Cargando...</h3>
+          <p>...</p>
+        </div>
+        <button id="cambiar-piloto">Cambiar Piloto</button>
+      </section>
+      <section id="saldo">
+        <h2>Saldo</h2>
+        <p id="saldo-actual">0€</p>
+        <label for="cantidad-descontar">Cantidad a descontar:</label>
+        <input type="number" id="cantidad-descontar" value="0" min="0" />
+        <button id="descontar-dinero">Descontar</button>
+        <br />
+        <label for="cantidad-anadir">Cantidad a añadir:</label>
+        <input type="number" id="cantidad-anadir" value="0" min="0" />
+        <button id="anadir-dinero">Añadir</button>
+      </section>
+
+      <section>
+        <div id="dado">
+          <span id="numero"></span>
+      </div>
+      <button id="lanzar" onclick="lanzarDado()">Lanzar dado</button>
+    
+
+      </section>
+     
+    </main>
+     <script src="app.js"></script>
+    <script>// Array de pilotos aleatorios
+        const pilotos = [
+          {
+            nombre: "Lewis Hamilton",
+            escuderia: "Mercedes",
+            imagen: "https://cdn-3.motorsport.com/images/mgl/0mb95oa2/s800/lewis-hamilton-mercedes-1.jpg",
+            precio: 8000,
+          },
+          {
+            nombre: "Max Verstappen",
+            escuderia: "Red Bull Racing Honda",
+            imagen: "img/verstappen.jpg",
+            precio: 7000,
+          },
+          {
+            nombre: "Fernando Alonso",
+            escuderia: "Alpine",
+            imagen: "img/alonso.jpg",
+            precio: 5000,
+          },
+          {
+            nombre: "Carlos Sainz",
+            escuderia: "Ferrari",
+            imagen: "img/sainz.jpg",
+            precio: 4000,
+          },
+          {
+            nombre: "Lando Norris",
+            escuderia: "McLaren",
+            imagen: "img/norris.jpg",
+            precio: 3000,
+          },
+        ];
+        
+        // Función para obtener un piloto aleatorio
+        function obtenerPilotoAleatorio() {
+          const indice = Math.floor(Math.random() * pilotos.length);
+          return pilotos[indice];
+        }
+        
+        // Función para mostrar el piloto aleatorio en la página
+        function mostrarPilotoAleatorio() {
+          const piloto = obtenerPilotoAleatorio();
+          const pilotoCard = document.getElementById("piloto-card");
+          pilotoCard.querySelector("img").src = piloto.imagen;
+          pilotoCard.querySelector("h3").textContent = piloto.nombre;
+          pilotoCard.querySelector("p").textContent = piloto.escuderia;
+          pilotoCard.dataset.precio = piloto.precio;
+        }
+        
+        // Función para descontar el saldo del usuario
+function descontarSaldo(precio) {
+  const saldoActual = document.getElementById("saldo-actual");
+  const saldo = parseInt(saldoActual.textContent.replace(" €", ""));
+  const nuevoSaldo = saldo - precio;
+  saldoActual.textContent = nuevoSaldo + " €";
+}
+
+// Función para añadir saldo al usuario
+function anadirSaldo(cantidad) {
+  const saldoActual = document.getElementById("saldo-actual");
+  const saldo = parseInt(saldoActual.textContent.replace(" €", ""));
+  const nuevoSaldo = saldo + cantidad;
+  saldoActual.textContent = nuevoSaldo + " €";
+}
+
+// Event listeners para los botones de "Cambiar Piloto" y "Descontar 1.000 €"
+const cambiarPilotoBtn = document.getElementById("cambiar-piloto");
+const descontarDineroBtn = document.getElementById("descontar-dinero");
+const anadirDineroBtn = document.getElementById("anadir-dinero");
+const cantidadDescontarInput = document.getElementById("cantidad-descontar");
+const cantidadAnadirInput = document.getElementById("cantidad-anadir");
+
+cambiarPilotoBtn.addEventListener("click", () => {
+  mostrarPilotoAleatorio();
+});
+
+descontarDineroBtn.addEventListener("click", () => {
+  const cantidadDescontar = parseInt(cantidadDescontarInput.value);
+  descontarSaldo(cantidadDescontar);
+});
+
+anadirDineroBtn.addEventListener("click", () => {
+  const cantidadAnadir = parseInt(cantidadAnadirInput.value);
+  anadirSaldo(cantidadAnadir);
+});
+
+        
+      
+        
+        // Mostrar un piloto aleatorio al cargar la página
+        mostrarPilotoAleatorio();
+        </script>
+  <script>
+    function lanzarDado() {
+    const numero = Math.floor(Math.random() * 6) + 1;
+    document.getElementById("numero").textContent = numero;
+}
+
+document.getElementById("lanzar").addEventListener("click", lanzarDado);
+
+  </script>
+  </body>
+</html>
