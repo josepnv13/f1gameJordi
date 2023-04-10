@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>F1 Game - Saldo y Piloto Random</title>
     <link rel="stylesheet" href="style.css" />
-    <style>body {
+    <style>
+    body {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
@@ -155,6 +156,37 @@
 
 #dado:hover {
     background-color: #e0e0e0;
+}
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+  }
+  nav {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* Estilos CSS para dispositivos tablet */
+@media (min-width: 601px) and (max-width: 1024px) {
+  header {
+    flex-direction: row;
+  }
+  nav {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* Estilos CSS para dispositivos de escritorio */
+@media (min-width: 1025px) {
+  header {
+    flex-direction: row;
+  }
+  nav {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 
 
